@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #0f1214; /* Dark background */
+  --color-foreground: #ededed;
+  --color-primary: #10b981; /* Emerald 500 */
+  --color-secondary: #f59e0b; /* Amber 500 */
+  --color-surface: #1e293b; /* Slate 800 - for cards */
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444; /* Red 500 */
+}
+
+:root {
+  --background: #0f1214;
+  --foreground: #ededed;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
