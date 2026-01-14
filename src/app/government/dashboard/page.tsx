@@ -4,6 +4,8 @@ import MetricCard from "@/components/MetricCard";
 import PowerChart from "@/components/PowerChart";
 import AlertCard from "@/components/AlertCard";
 import { Zap, Thermometer, Wind, Activity, Droplets } from "lucide-react";
+import { useEffect, useState } from "react";
+import { subscribeToData } from "@/lib/db";
 
 // Mock Data
 const powerData = [
@@ -17,6 +19,40 @@ const powerData = [
 ];
 
 export default function Dashboard() {
+    const [metrics, setMetrics] = useState({
+        voltage: 0,
+        current: 0,
+        power: 0,
+        temperature: 0,
+        humidity: 0,
+        aqi: 0,
+        gas: 0,
+    });
+
+    useEffect(() => {
+        // Subscribe to the root 'sensors' node or individual nodes
+        // Assuming structure: /sensors/voltage, /sensors/current, etc. OR flat at root
+        // For now listening to flat keys as they are likely stored
+
+        const unsubscribeVoltage = subscribeToData("highway_system/data/voltage", (val) => setMetrics(prev => ({ ...prev, voltage: Number(val) || 0 })));
+        const unsubscribeCurrent = subscribeToData("highway_system/data/current", (val) => setMetrics(prev => ({ ...prev, current: Number(val) || 0 })));
+        const unsubscribePower = subscribeToData("highway_system/data/power", (val) => setMetrics(prev => ({ ...prev, power: Number(val) || 0 })));
+        const unsubscribeTemp = subscribeToData("highway_system/data/temperature", (val) => setMetrics(prev => ({ ...prev, temperature: Number(val) || 0 })));
+        const unsubscribeHumidity = subscribeToData("highway_system/data/humidity", (val) => setMetrics(prev => ({ ...prev, humidity: Number(val) || 0 })));
+        const unsubscribeAQI = subscribeToData("highway_system/data/aqi", (val) => setMetrics(prev => ({ ...prev, aqi: Number(val) || 0 }))); // Assuming AQI might be added or is hidden
+        const unsubscribeGas = subscribeToData("highway_system/data/gas", (val) => setMetrics(prev => ({ ...prev, gas: Number(val) || 0 })));
+
+        return () => {
+            unsubscribeVoltage();
+            unsubscribeCurrent();
+            unsubscribePower();
+            unsubscribeTemp();
+            unsubscribeHumidity();
+            unsubscribeAQI();
+            unsubscribeGas();
+        };
+    }, []);
+
     return (
         <div className="space-y-8">
             <div>
@@ -28,31 +64,31 @@ export default function Dashboard() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <MetricCard
                     title="Power Generated"
-                    value="450.5"
-                    unit="kWh"
+                    value={metrics.power}
+                    unit="W"
                     icon={Zap}
-                    status="normal"
-                    trend="+12% vs yesterday"
+                    status={metrics.power > 0 ? "normal" : "warning"}
+                    trend="Live"
                 />
                 <MetricCard
                     title="Temperature"
-                    value="28.4"
+                    value={metrics.temperature}
                     unit="°C"
                     icon={Thermometer}
-                    status="warning"
-                    trend="High for this hour"
+                    status={metrics.temperature > 35 ? "warning" : "normal"}
+                    trend="Live"
                 />
                 <MetricCard
                     title="Air Quality (AQI)"
-                    value="112"
+                    value={metrics.aqi}
                     unit="PM2.5"
                     icon={Wind}
-                    status="critical"
-                    trend="Poor air quality"
+                    status={metrics.aqi > 100 ? "critical" : "normal"}
+                    trend="Live"
                 />
                 <MetricCard
                     title="Voltage"
-                    value="24.1"
+                    value={metrics.voltage}
                     unit="V"
                     icon={Activity}
                     status="normal"
@@ -65,20 +101,27 @@ export default function Dashboard() {
                     <PowerChart data={powerData} />
 
                     {/* Secondary Metrics / More Graphs placeholder */}
-                    <div className="grid grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <MetricCard
+                            title="Current"
+                            value={metrics.current}
+                            unit="A"
+                            icon={Zap}
+                            status="normal"
+                        />
                         <MetricCard
                             title="Humidity"
-                            value="65"
+                            value={metrics.humidity}
                             unit="%"
                             icon={Droplets}
                             status="normal"
                         />
                         <MetricCard
                             title="Gas Level"
-                            value="12"
+                            value={metrics.gas}
                             unit="ppm"
                             icon={Wind}
-                            status="normal"
+                            status={metrics.gas > 50 ? "warning" : "normal"}
                         />
                     </div>
                 </div>
