@@ -4,7 +4,11 @@ import { db } from "./firebase";
 export const subscribeToData = (path: string, callback: (data: any) => void) => {
     const dataRef = ref(db, path);
     return onValue(dataRef, (snapshot) => {
-        callback(snapshot.val());
+        const val = snapshot.val();
+        console.log(`Data received for ${path}:`, val); // Debug log
+        callback(val);
+    }, (error) => {
+        console.error(`Error subscribing to ${path}:`, error); // Error log
     });
 };
 

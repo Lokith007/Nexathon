@@ -29,6 +29,8 @@ export default function Dashboard() {
         gas: 257,
     });
 
+    const [powerHistory, setPowerHistory] = useState<{ time: string, power: number }[]>([]);
+
     useEffect(() => {
         // Subscribe to the root 'sensors' node or individual nodes
         // Assuming structure: /sensors/voltage, /sensors/current, etc. OR flat at root
@@ -36,7 +38,24 @@ export default function Dashboard() {
 
         const unsubscribeVoltage = subscribeToData("highway_system/data/voltage", (val) => setMetrics(prev => ({ ...prev, voltage: Number(val) || 0 })));
         const unsubscribeCurrent = subscribeToData("highway_system/data/current", (val) => setMetrics(prev => ({ ...prev, current: Number(val) || 0 })));
-        const unsubscribePower = subscribeToData("highway_system/data/power", (val) => setMetrics(prev => ({ ...prev, power: Number(val) || 0 })));
+
+        const unsubscribePower = subscribeToData("highway_system/data/power", (val) => {
+            const numVal = Number(val) || 0;
+            setMetrics(prev => ({ ...prev, power: numVal }));
+
+            // Update chart history
+            setPowerHistory(prev => {
+                const now = new Date();
+                const timeString = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
+                const newEntry = { time: timeString, power: numVal };
+
+                // Keep last 20 data points to avoid overcrowding
+                const newHistory = [...prev, newEntry];
+                if (newHistory.length > 20) return newHistory.slice(newHistory.length - 20);
+                return newHistory;
+            });
+        });
+
         const unsubscribeTemp = subscribeToData("highway_system/data/temperature", (val) => setMetrics(prev => ({ ...prev, temperature: Number(val) || 0 })));
         const unsubscribeHumidity = subscribeToData("highway_system/data/humidity", (val) => setMetrics(prev => ({ ...prev, humidity: Number(val) || 0 })));
         const unsubscribeAQI = subscribeToData("highway_system/data/aqi", (val) => setMetrics(prev => ({ ...prev, aqi: Number(val) || 0 }))); // Assuming AQI might be added or is hidden
@@ -104,7 +123,7 @@ export default function Dashboard() {
             {/* Charts & Alerts */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div className="lg:col-span-2 space-y-6">
-                    <PowerChart data={powerData} />
+                    <PowerChart data={powerHistory} />
 
                     {/* Secondary Metrics / More Graphs placeholder */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
