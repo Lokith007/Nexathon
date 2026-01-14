@@ -21,12 +21,12 @@ const powerData = [
 export default function Dashboard() {
     const [metrics, setMetrics] = useState({
         voltage: 0,
-        current: 0,
+        current: 0.28,
         power: 0,
-        temperature: 0,
-        humidity: 0,
-        aqi: 0,
-        gas: 0,
+        temperature: 27.6,
+        humidity: 75.7,
+        aqi: 45, // Estimated safe value
+        gas: 257,
     });
 
     useEffect(() => {
@@ -55,9 +55,12 @@ export default function Dashboard() {
 
     return (
         <div className="space-y-8">
-            <div>
-                <h1 className="text-3xl font-bold text-white mb-2">Dashboard Overview</h1>
-                <p className="text-stone-400">Real-time monitoring of highway assets.</p>
+            {/* Dashboard Header */}
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div>
+                    <h1 className="text-4xl font-extrabold text-white tracking-tight mb-1">Smart Highway Management</h1>
+                    <p className="text-stone-400 font-medium">System Status: <span className="text-primary font-bold">Optimal</span></p>
+                </div>
             </div>
 
             {/* Top Metrics */}
@@ -69,6 +72,7 @@ export default function Dashboard() {
                     icon={Zap}
                     status={metrics.power > 0 ? "normal" : "warning"}
                     trend="Live"
+                    variant="filled" // Highlight as key metric
                 />
                 <MetricCard
                     title="Temperature"
@@ -77,6 +81,7 @@ export default function Dashboard() {
                     icon={Thermometer}
                     status={metrics.temperature > 35 ? "warning" : "normal"}
                     trend="Live"
+                    variant="filled" // Highlight as key metric
                 />
                 <MetricCard
                     title="Air Quality (AQI)"
@@ -85,6 +90,7 @@ export default function Dashboard() {
                     icon={Wind}
                     status={metrics.aqi > 100 ? "critical" : "normal"}
                     trend="Live"
+                    variant="filled" // Highlight as key metric (Purple if critical/secondary logic used)
                 />
                 <MetricCard
                     title="Voltage"
@@ -127,10 +133,10 @@ export default function Dashboard() {
                 </div>
 
                 {/* Alerts Panel */}
-                <div className="bg-surface/50 backdrop-blur-sm rounded-2xl p-6 border border-white/5 h-fit">
+                <div className="bg-surface rounded-2xl p-6 border border-white/5 h-fit">
                     <div className="flex items-center justify-between mb-6">
                         <h3 className="text-lg font-semibold text-white">Recent Alerts</h3>
-                        <span className="bg-error/20 text-error px-2 py-1 rounded-md text-xs font-bold animate-pulse">3 Active</span>
+                        <span className="bg-error text-white px-2 py-1 rounded-md text-xs font-bold animate-pulse">3 Active</span>
                     </div>
 
                     <div className="space-y-4">

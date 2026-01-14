@@ -18,7 +18,7 @@ interface FaultTableProps {
 
 export default function FaultTable({ faults, onAssign }: FaultTableProps) {
     return (
-        <div className="overflow-x-auto bg-surface/50 backdrop-blur-sm rounded-2xl border border-white/5">
+        <div className="overflow-x-auto bg-surface rounded-2xl border border-white/10 shadow-sm">
             <table className="w-full text-left text-sm">
                 <thead className="bg-white/5 text-stone-400 font-medium">
                     <tr>
@@ -38,11 +38,12 @@ export default function FaultTable({ faults, onAssign }: FaultTableProps) {
                             <td className="p-4 text-stone-300">{fault.location}</td>
                             <td className="p-4">
                                 <span className={clsx(
-                                    "px-2 py-1 rounded-full text-xs font-medium flex items-center w-fit gap-1",
-                                    fault.status === "new" && "bg-error/10 text-error",
-                                    fault.status === "assigned" && "bg-warning/10 text-warning",
-                                    fault.status === "in_progress" && "bg-blue-500/10 text-blue-500",
-                                    fault.status === "completed" && "bg-primary/10 text-primary",
+                                    "px-2 py-1 rounded-full text-xs font-bold flex items-center w-fit gap-1",
+                                    // Solid colors for table badges
+                                    fault.status === "new" && "bg-error text-white",
+                                    fault.status === "assigned" && "bg-warning text-black",
+                                    fault.status === "in_progress" && "bg-blue-500 text-white",
+                                    fault.status === "completed" && "bg-primary text-black",
                                 )}>
                                     {fault.status === "new" && <AlertCircle className="w-3 h-3" />}
                                     {fault.status === "assigned" && <Clock className="w-3 h-3" />}
@@ -58,7 +59,7 @@ export default function FaultTable({ faults, onAssign }: FaultTableProps) {
                                 {fault.status === "new" && (
                                     <button
                                         onClick={() => onAssign(fault.id)}
-                                        className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-colors text-xs font-bold"
+                                        className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-primary text-black hover:bg-primary/90 transition-colors text-xs font-bold"
                                     >
                                         <UserPlus className="w-4 h-4" />
                                         Assign

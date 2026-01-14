@@ -30,35 +30,40 @@ export default function Navbar() {
     return (
         <nav className="fixed top-0 left-0 right-0 h-16 bg-surface/80 backdrop-blur-md border-b border-white/10 flex items-center justify-between px-6 z-50">
             <div className="flex items-center gap-3">
-                <Link href="/" className="text-xl font-bold tracking-tight bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                    Smart Highway EMS
+                <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-black font-bold">
+                    <Wifi className="w-5 h-5" />
+                </div>
+                <Link href="/" className="text-xl font-bold tracking-tight text-white hover:opacity-90 transition-opacity">
+                    Smart Highway Management
                 </Link>
             </div>
 
             <div className="flex items-center gap-6">
                 {/* Connection Status */}
-                <div className="flex items-center gap-2 text-sm font-medium">
+                <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-stone-500">
                     {dbConnected ? (
-                        <>
-                            <Wifi className="w-4 h-4 text-primary" />
-                            <span className="text-primary">Online</span>
-                        </>
+                        <span className="flex items-center gap-1.5 text-primary">
+                            <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                            </span>
+                            System Online
+                        </span>
                     ) : (
-                        <>
-                            <WifiOff className="w-4 h-4 text-error" />
-                            <span className="text-error">Offline</span>
-                        </>
+                        <span className="text-error flex items-center gap-1.5">
+                            <WifiOff className="w-3 h-3" /> Offline
+                        </span>
                     )}
                 </div>
 
                 {/* Profile */}
                 <div className="flex items-center gap-3 pl-6 border-l border-white/10">
                     <div className="flex flex-col items-end">
-                        <span className="text-sm font-semibold text-foreground">{user?.email || "Guest"}</span>
-                        <span className="text-xs text-stone-400">Admin</span>
+                        <span className="text-sm font-semibold text-white">Admin User</span>
+                        <span className="text-[10px] uppercase font-bold text-stone-500 tracking-wider">Government</span>
                     </div>
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold shadow-lg">
-                        <User className="w-5 h-5" />
+                    <div className="w-9 h-9 rounded-full bg-white/10 border border-white/5 flex items-center justify-center text-white hover:bg-white/20 transition-colors cursor-pointer">
+                        <User className="w-4 h-4" />
                     </div>
                 </div>
             </div>

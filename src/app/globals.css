@@ -1,14 +1,21 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #0f1214; /* Dark background */
-  --color-foreground: #ededed;
-  --color-primary: #10b981; /* Emerald 500 */
-  --color-secondary: #f59e0b; /* Amber 500 */
-  --color-surface: #1e293b; /* Slate 800 - for cards */
-  --color-success: #10b981;
-  --color-warning: #f59e0b;
-  --color-error: #ef4444; /* Red 500 */
+  --color-background: #000000;
+  /* Pitch Black background */
+  --color-foreground: #ffffff;
+  --color-primary: #bef264;
+  /* Lime 400 */
+  --color-secondary: #a855f7;
+  /* Purple 500 */
+  --color-surface: #000000;
+  /* Match Background - Seamless Black */
+  --color-success: #bef264;
+  /* Matching Primary */
+  --color-warning: #facc15;
+  /* Yellow 400 */
+  --color-error: #ef4444;
+  /* Red 500 */
 }
 
 :root {

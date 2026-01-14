@@ -18,7 +18,7 @@ export default function AssignWorkerModal({ isOpen, onClose, onAssign }: AssignW
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
             <div className="bg-surface border border-white/10 rounded-2xl w-full max-w-md p-6 shadow-2xl transform transition-all scale-100">
                 <div className="flex justify-between items-center mb-6">
                     <h3 className="text-xl font-bold text-white">Assign Worker</h3>
@@ -32,9 +32,9 @@ export default function AssignWorkerModal({ isOpen, onClose, onAssign }: AssignW
                         <button
                             key={worker.id}
                             onClick={() => onAssign(worker.id)}
-                            className="w-full flex items-center gap-4 p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 transition-all text-left group"
+                            className="w-full flex items-center gap-4 p-4 rounded-xl bg-surface border border-white/5 hover:border-primary transition-all text-left group"
                         >
-                            <div className="w-10 h-10 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold">
+                            <div className="w-10 h-10 rounded-full bg-primary text-black flex items-center justify-center font-bold">
                                 {worker.name[0]}
                             </div>
                             <div>
