@@ -8,7 +8,7 @@ interface PowerChartProps {
 
 export default function PowerChart({ data }: PowerChartProps) {
     return (
-        <div className="w-full h-[300px] bg-surface rounded-2xl p-4 border border-white/10 shadow-sm">
+        <div className="w-full h-[300px] bg-surface rounded-2xl p-4 border border-white/50 shadow-sm">
             <h3 className="text-lg font-semibold text-white mb-6">Power Generation (Live)</h3>
             <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={data}>

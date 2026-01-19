@@ -46,7 +46,7 @@ export default function WorkerManagementPanel() {
     };
 
     return (
-        <div className="bg-surface/50 backdrop-blur-sm border border-white/5 rounded-3xl p-6 h-full flex flex-col">
+        <div className="bg-surface/50 backdrop-blur-sm border border-white/50 rounded-3xl p-6 h-full flex flex-col">
             <div className="flex items-center justify-between mb-6">
                 <div>
                     <h3 className="text-xl font-bold text-white">Active Workforce</h3>

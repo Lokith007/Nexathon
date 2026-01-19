@@ -90,9 +90,9 @@ export default function Dashboard() {
                     value={metrics.power}
                     unit="W"
                     icon={Zap}
-                    status={metrics.power > 0 ? "normal" : "warning"}
                     trend="Live"
                     variant="filled"
+                    className="border border-white/50"
                 />
                 <MetricCard
                     title="Temperature"
@@ -109,6 +109,8 @@ export default function Dashboard() {
                     unit="V"
                     icon={Activity}
                     status="normal"
+                    variant="filled"
+                    color="secondary"
                 />
             </div>
 
@@ -126,6 +128,8 @@ export default function Dashboard() {
                             unit="A"
                             icon={Zap}
                             status="normal"
+                            variant="filled"
+                            color="blue"
                         />
                         <MetricCard
                             title="Humidity"
@@ -133,6 +137,8 @@ export default function Dashboard() {
                             unit="%"
                             icon={Droplets}
                             status="normal"
+                            variant="filled"
+                            color="cyan"
                         />
                         <MetricCard
                             title="Gas Level"
@@ -140,6 +146,8 @@ export default function Dashboard() {
                             unit="ppm"
                             icon={Wind}
                             status={metrics.gas > 50 ? "warning" : "normal"}
+                            variant="filled"
+                            color={metrics.gas > 50 ? "rose" : "emerald"}
                         />
                     </div>
 
@@ -158,11 +166,17 @@ export default function Dashboard() {
                             pm25={metrics.pm25}
                             pm10={metrics.pm10}
                             no2={metrics.no2}
+
+                        // Adding className is not supported by AirQualityCard yet, need to check or modify AirQualityCard directly
+                        // The user request implies changing "Air Qualityy" which refers to this component.
+                        // I will modify the AirQualityCard implementation instead of passing props, 
+                        // as checking AirQualityCard I see it hardcodes styles.
+                        // So I will only change PowerGenerated here.
                         />
                     </div>
 
                     {/* Alerts Panel */}
-                    <div className="bg-surface rounded-2xl p-6 border border-white/5 h-fit">
+                    <div className="bg-surface rounded-2xl p-6 border border-white/50 h-fit">
                         <div className="flex items-center justify-between mb-6">
                             <h3 className="text-lg font-semibold text-white">Recent Alerts</h3>
                             <span className="bg-error text-white px-2 py-1 rounded-md text-xs font-bold animate-pulse">3 Active</span>
