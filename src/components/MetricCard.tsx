@@ -11,22 +11,84 @@ interface MetricCardProps {
     icon: LucideIcon;
     trend?: string;
     variant?: "default" | "filled"; // New prop to control card style
+    color?: "primary" | "secondary" | "blue" | "cyan" | "emerald" | "amber" | "rose" | "indigo";
+    className?: string;
 }
 
-export default function MetricCard({ title, value, unit, status = "normal", icon: Icon, trend, variant = "default" }: MetricCardProps) {
+export default function MetricCard({ title, value, unit, status = "normal", icon: Icon, trend, variant = "default", color, className }: MetricCardProps) {
     // Determine base colors based on status if filled
     const isFilled = variant === "filled";
 
     // Default/Dark Card Styles - Professional "Black on Black"
     // Using a subtle border to define the card against the same color background
-    let cardBg = "bg-surface border-white/10 shadow-sm hover:border-white/20 hover:bg-white/5";
+    let cardBg = "bg-surface border-white/50 shadow-sm hover:border-white/60 hover:bg-white/5";
     let textColor = "text-white";
     let iconBg = "bg-white/5 text-white border border-white/10";
     let unitColor = "text-stone-500";
     let titleColor = "text-stone-400";
 
     if (isFilled) {
-        if (status === "normal") {
+        if (color) {
+            // explicit color overrides status-based default colors
+            switch (color) {
+                case "primary":
+                    cardBg = "bg-primary border-primary";
+                    textColor = "text-black";
+                    iconBg = "bg-black/20 text-black";
+                    unitColor = "text-black/60";
+                    titleColor = "text-black/70";
+                    break;
+                case "secondary":
+                    cardBg = "bg-secondary border-secondary";
+                    textColor = "text-white";
+                    iconBg = "bg-white/20 text-white";
+                    unitColor = "text-white/80";
+                    titleColor = "text-white/90";
+                    break;
+                case "blue":
+                    cardBg = "bg-blue-500 border-blue-500";
+                    textColor = "text-white";
+                    iconBg = "bg-white/20 text-white";
+                    unitColor = "text-white/80";
+                    titleColor = "text-white/90";
+                    break;
+                case "cyan":
+                    cardBg = "bg-cyan-400 border-cyan-400";
+                    textColor = "text-black";
+                    iconBg = "bg-black/20 text-black";
+                    unitColor = "text-black/60";
+                    titleColor = "text-black/70";
+                    break;
+                case "emerald":
+                    cardBg = "bg-emerald-500 border-emerald-500";
+                    textColor = "text-white";
+                    iconBg = "bg-white/20 text-white";
+                    unitColor = "text-white/80";
+                    titleColor = "text-white/90";
+                    break;
+                case "amber":
+                    cardBg = "bg-amber-400 border-amber-400";
+                    textColor = "text-black";
+                    iconBg = "bg-black/20 text-black";
+                    unitColor = "text-black/60";
+                    titleColor = "text-black/70";
+                    break;
+                case "rose":
+                    cardBg = "bg-rose-500 border-rose-500";
+                    textColor = "text-white";
+                    iconBg = "bg-white/20 text-white";
+                    unitColor = "text-white/80";
+                    titleColor = "text-white/90";
+                    break;
+                case "indigo":
+                    cardBg = "bg-indigo-500 border-indigo-500";
+                    textColor = "text-white";
+                    iconBg = "bg-white/20 text-white";
+                    unitColor = "text-white/80";
+                    titleColor = "text-white/90";
+                    break;
+            }
+        } else if (status === "normal") {
             cardBg = "bg-primary border-primary"; // Lime filled
             textColor = "text-black";
             iconBg = "bg-black/20 text-black";
@@ -39,14 +101,6 @@ export default function MetricCard({ title, value, unit, status = "normal", icon
             unitColor = "text-black/60";
             titleColor = "text-black/70";
         } else if (status === "critical") {
-            cardBg = "bg-secondary border-secondary"; // Purple filled (using secondary for critical/outdoor distinction in this context or error)
-            // NOTE: Reference image uses Purple for "Outdoor". We might map critical or specific props to Purple. 
-            // For now, let's map 'critical' to Purple to match the "Outdoor" look if we use it there, or keep it Red.
-            // Actually, let's stick to the theme: Primary=Lime, Secondary=Purple.
-            // If status is critical, maybe we keep it Error Red or use Secondary Purple?
-            // Let's use Secondary (Purple) for a specific case if needed, but standard Critical is Red.
-            // However, for the "Outdoor" card in the image (Purple), it's likely a specific type.
-            // Let's rely on 'status' mapping for now.
             cardBg = "bg-error border-error";
             textColor = "text-white";
             iconBg = "bg-white/20 text-white";
@@ -58,7 +112,8 @@ export default function MetricCard({ title, value, unit, status = "normal", icon
     return (
         <div className={clsx(
             "relative overflow-hidden rounded-2xl p-5 border transition-all duration-300 hover:shadow-lg group",
-            cardBg
+            cardBg,
+            className
         )}>
             <div className="flex justify-between items-start mb-4">
                 <div className={clsx("p-3 rounded-xl", iconBg)}>

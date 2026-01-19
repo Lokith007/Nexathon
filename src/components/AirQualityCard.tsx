@@ -38,7 +38,7 @@ export default function AirQualityCard({ aqi, pm25 = 51, pm10 = 34, no2 = 1 }: A
     const strokeDashoffset = circumference - (gaugePercent / 100) * circumference;
 
     return (
-        <div className="bg-surface/50 backdrop-blur-sm border border-white/5 rounded-3xl p-6 flex flex-col items-center justify-between h-full relative overflow-hidden group hover:border-white/10 transition-colors">
+        <div className="bg-surface/50 backdrop-blur-sm border border-white/50 rounded-3xl p-6 flex flex-col items-center justify-between h-full relative overflow-hidden group hover:border-white/10 transition-colors">
 
             {/* Header */}
             <div className="w-full flex items-start justify-between z-10">

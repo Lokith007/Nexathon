@@ -18,7 +18,7 @@ interface FaultTableProps {
 
 export default function FaultTable({ faults, onAssign }: FaultTableProps) {
     return (
-        <div className="overflow-x-auto bg-surface rounded-2xl border border-white/10 shadow-sm">
+        <div className="overflow-x-auto bg-surface rounded-2xl border border-white/50 shadow-sm">
             <table className="w-full text-left text-sm">
                 <thead className="bg-white/5 text-stone-400 font-medium">
                     <tr>

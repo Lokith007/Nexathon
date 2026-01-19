@@ -30,7 +30,7 @@ export default function WorkersPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {workers.map((worker) => (
-                    <div key={worker.id} className="bg-surface/50 backdrop-blur-sm p-6 rounded-2xl border border-white/5 hover:border-primary/20 transition-all group">
+                    <div key={worker.id} className="bg-surface/50 backdrop-blur-sm p-6 rounded-2xl border border-white/50 hover:border-primary/20 transition-all group">
                         <div className="flex items-start justify-between mb-4">
                             <div className="flex items-center gap-3">
                                 <div className="w-12 h-12 rounded-full bg-gradient-to-br from-stone-700 to-stone-800 flex items-center justify-center text-white font-bold">
