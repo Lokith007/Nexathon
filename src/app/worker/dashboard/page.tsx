@@ -35,7 +35,7 @@ export default function WorkerDashboard() {
                 />
             </div>
 
-            <div className="bg-surface/50 p-6 rounded-2xl border border-white/5">
+            <div className="bg-surface/50 p-6 rounded-2xl border border-white/50">
                 <h3 className="text-lg font-semibold text-white mb-4">Current Priority Task</h3>
                 <div className="p-4 rounded-xl bg-gradient-to-br from-primary/10 to-blue-500/5 border border-primary/20">
                     <div className="flex justify-between items-start">
