@@ -19,6 +19,8 @@ const initialFaults: Fault[] = [
     { id: "104", type: "Overheating", location: "Turbine T-01", status: "completed", assignedTo: "Jane Smith" },
 ];
 
+import * as XLSX from "xlsx";
+
 export default function FaultsPage() {
     const [faults, setFaults] = useState<Fault[]>(initialFaults);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -43,6 +45,13 @@ export default function FaultsPage() {
         setSelectedFaultId(null);
     };
 
+    const handleExport = () => {
+        const worksheet = XLSX.utils.json_to_sheet(faults);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Faults");
+        XLSX.writeFile(workbook, "Faults_Report.xlsx");
+    };
+
     return (
         <div className="space-y-6">
             <div className="flex items-center justify-between">
@@ -50,7 +59,10 @@ export default function FaultsPage() {
                     <h1 className="text-3xl font-bold text-white mb-2">Fault Management</h1>
                     <p className="text-stone-400">Track and assign system faults.</p>
                 </div>
-                <button className="bg-primary text-black font-bold px-4 py-2 rounded-xl hover:bg-primary-600 transition-colors">
+                <button
+                    onClick={handleExport}
+                    className="bg-primary text-black font-bold px-4 py-2 rounded-xl hover:bg-primary-600 transition-colors"
+                >
                     Export Report
                 </button>
             </div>

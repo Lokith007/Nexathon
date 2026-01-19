@@ -2,6 +2,7 @@
 
 import { CheckCircle, Clock, MapPin, PlayCircle } from "lucide-react";
 import clsx from "clsx";
+import { useState } from "react";
 
 const tasks = [
     { id: 102, title: "Sensor Disconnected", location: "Pole P-22", status: "in_progress", priority: "high" },
@@ -10,6 +11,20 @@ const tasks = [
 ];
 
 export default function WorkerTasks() {
+    const [taskList, setTaskList] = useState(tasks);
+
+    const handleMarkComplete = (id: number) => {
+        setTaskList(prev => prev.map(t =>
+            t.id === id ? { ...t, status: "completed" } : t
+        ));
+    };
+
+    const handleStartTask = (id: number) => {
+        setTaskList(prev => prev.map(t =>
+            t.id === id ? { ...t, status: "in_progress" } : t
+        ));
+    };
+
     return (
         <div className="space-y-6">
             <div>
@@ -18,8 +33,8 @@ export default function WorkerTasks() {
             </div>
 
             <div className="space-y-4">
-                {tasks.map(task => (
-                    <div key={task.id} className="bg-surface/50 backdrop-blur-sm p-6 rounded-2xl border border-white/5 hover:border-white/10 transition-all">
+                {taskList.map(task => (
+                    <div key={task.id} className="bg-surface/50 backdrop-blur-sm p-6 rounded-2xl border border-white/50 hover:border-white/10 transition-all">
                         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                             <div className="flex-1">
                                 <div className="flex items-center gap-3 mb-2">
@@ -40,13 +55,19 @@ export default function WorkerTasks() {
 
                             <div className="flex items-center gap-3">
                                 {task.status === "in_progress" && (
-                                    <button className="flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-black font-bold hover:bg-primary-600 transition-colors">
+                                    <button
+                                        onClick={() => handleMarkComplete(task.id)}
+                                        className="flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-black font-bold hover:bg-primary-600 transition-colors"
+                                    >
                                         <CheckCircle className="w-4 h-4" />
                                         Done
                                     </button>
                                 )}
                                 {task.status === "pending" && (
-                                    <button className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 text-white font-medium hover:bg-white/20 transition-colors">
+                                    <button
+                                        onClick={() => handleStartTask(task.id)}
+                                        className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 text-white font-medium hover:bg-white/20 transition-colors"
+                                    >
                                         <PlayCircle className="w-4 h-4" />
                                         Start
                                     </button>
