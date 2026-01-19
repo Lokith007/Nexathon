@@ -2,8 +2,15 @@
 
 import MetricCard from "@/components/MetricCard";
 import { ClipboardList, AlertCircle, CheckCircle } from "lucide-react";
+import { useState } from "react";
 
 export default function WorkerDashboard() {
+    const [isTaskCompleted, setIsTaskCompleted] = useState(false);
+
+    const handleMarkComplete = () => {
+        setIsTaskCompleted(true);
+    };
+
     return (
         <div className="space-y-8">
             <div>
@@ -14,14 +21,14 @@ export default function WorkerDashboard() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <MetricCard
                     title="Assigned Tasks"
-                    value="2"
+                    value={isTaskCompleted ? "1" : "2"}
                     unit="Pending"
                     icon={ClipboardList}
-                    status="warning"
+                    status={isTaskCompleted ? "normal" : "warning"}
                 />
                 <MetricCard
                     title="Completed Today"
-                    value="4"
+                    value={isTaskCompleted ? "5" : "4"}
                     unit="Tasks"
                     icon={CheckCircle}
                     status="normal"
@@ -43,14 +50,29 @@ export default function WorkerDashboard() {
                             <h4 className="font-bold text-lg text-white">Repair Sensor Node #404</h4>
                             <p className="text-stone-400 text-sm mt-1">Location: Highway Section B2</p>
                         </div>
-                        <span className="bg-primary text-black px-3 py-1 rounded-full text-xs font-bold">
-                            HIGH PRIORITY
-                        </span>
+                        {isTaskCompleted ? (
+                            <span className="bg-emerald-500 text-black px-3 py-1 rounded-full text-xs font-bold">
+                                COMPLETED
+                            </span>
+                        ) : (
+                            <span className="bg-primary text-black px-3 py-1 rounded-full text-xs font-bold animate-pulse">
+                                HIGH PRIORITY
+                            </span>
+                        )}
                     </div>
                     <div className="mt-4 flex gap-3">
-                        <button className="flex-1 bg-primary text-black font-bold py-2 rounded-lg hover:bg-primary-600 transition-colors">
-                            Mark Complete
-                        </button>
+                        {isTaskCompleted ? (
+                            <button disabled className="flex-1 bg-emerald-500/20 text-emerald-500 border border-emerald-500/50 font-bold py-2 rounded-lg cursor-not-allowed">
+                                Task Completed
+                            </button>
+                        ) : (
+                            <button
+                                onClick={handleMarkComplete}
+                                className="flex-1 bg-primary text-black font-bold py-2 rounded-lg hover:bg-primary-600 transition-colors"
+                            >
+                                Mark Complete
+                            </button>
+                        )}
                         <button className="flex-1 bg-white/10 text-white font-medium py-2 rounded-lg hover:bg-white/20 transition-colors">
                             View Details
                         </button>
