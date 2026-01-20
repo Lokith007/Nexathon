@@ -56,7 +56,7 @@ export default function Dashboard() {
 
         const unsubscribeTemp = subscribeToData("highway_system/data/temperature", (val) => setMetrics(prev => ({ ...prev, temperature: Number(val) || 0 })));
         const unsubscribeHumidity = subscribeToData("highway_system/data/humidity", (val) => setMetrics(prev => ({ ...prev, humidity: Number(val) || 0 })));
-        const unsubscribeAQI = subscribeToData("highway_system/data/aqi", (val) => setMetrics(prev => ({ ...prev, aqi: Number(val) || 0 })));
+        const unsubscribeAQI = subscribeToData("highway_system/data/aqi", (val) => setMetrics(prev => ({ ...prev, aqi: Number(val) || 45 })));
         const unsubscribeGas = subscribeToData("highway_system/data/gas", (val) => setMetrics(prev => ({ ...prev, gas: Number(val) || 0 })));
 
         // Mock subscriptions for detailed air data if they existed
