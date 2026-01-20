@@ -29,9 +29,9 @@ export default function Dashboard() {
         humidity: 75.7,
         aqi: 45,
         gas: 257,
-        pm25: 51,
-        pm10: 34,
-        no2: 1,
+        pm25: 25,
+        pm10: 40,
+        no2: 30,
     });
 
     const [powerHistory, setPowerHistory] = useState<{ time: string, power: number }[]>([]);

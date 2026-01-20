@@ -104,14 +104,12 @@ export default function AirQualityCard({ aqi, pm25 = 51, pm10 = 34, no2 = 1 }: A
                 <div className="flex items-center justify-between gap-4">
                     <div className="flex items-center gap-2 text-white font-medium w-16">
                         PM2.5
-                        <Info className="w-3 h-3 text-red-500/70" /> {/* Simulate the red info icon */}
+                        <Info className="w-3 h-3 text-emerald-400" />
                     </div>
                     <div className="flex-1 h-2 bg-stone-700/50 rounded-full overflow-hidden flex">
-                        {/* Custom multi-color bar to match image style slightly */}
-                        <div className="w-1/2 bg-red-400 rounded-full" />
-                        <div className="w-1/3 bg-transparent" />
+                        <div style={{ width: `${Math.min((pm25 / 60) * 100, 100)}%` }} className="bg-emerald-400 rounded-full transition-all duration-1000" />
                     </div>
-                    <span className="text-red-400 font-bold w-6 text-right">{pm25}</span>
+                    <span className="text-emerald-400 font-bold w-6 text-right">{pm25}</span>
                 </div>
 
                 {/* PM10 */}
@@ -120,9 +118,9 @@ export default function AirQualityCard({ aqi, pm25 = 51, pm10 = 34, no2 = 1 }: A
                         PM10
                     </div>
                     <div className="flex-1 h-2 bg-stone-700/50 rounded-full overflow-hidden flex">
-                        <div className="w-[30%] bg-orange-400 rounded-full" />
+                        <div style={{ width: `${Math.min((pm10 / 100) * 100, 100)}%` }} className="bg-emerald-400 rounded-full transition-all duration-1000" />
                     </div>
-                    <span className="text-orange-400 font-bold w-6 text-right">{pm10}</span>
+                    <span className="text-emerald-400 font-bold w-6 text-right">{pm10}</span>
                 </div>
 
                 {/* NO2 */}
@@ -131,9 +129,9 @@ export default function AirQualityCard({ aqi, pm25 = 51, pm10 = 34, no2 = 1 }: A
                         NO2
                     </div>
                     <div className="flex-1 h-2 bg-stone-700/50 rounded-full overflow-hidden flex">
-                        <div className="w-[5%] bg-red-500 rounded-full" />
+                        <div style={{ width: `${Math.min((no2 / 80) * 100, 100)}%` }} className="bg-emerald-400 rounded-full transition-all duration-1000" />
                     </div>
-                    <span className="text-red-500 font-bold w-6 text-right">{no2}</span>
+                    <span className="text-emerald-400 font-bold w-6 text-right">{no2}</span>
                 </div>
 
                 <div className="text-center text-stone-300 text-sm italic mt-4 pt-4 border-t border-white/5">
