@@ -93,6 +93,7 @@ export default function Dashboard() {
                     trend="Live"
                     variant="filled"
                     className="border border-white/50"
+                    color="orange"
                 />
                 <MetricCard
                     title="Temperature"
@@ -102,6 +103,7 @@ export default function Dashboard() {
                     status={metrics.temperature > 35 ? "warning" : "normal"}
                     trend="Live"
                     variant="filled"
+                    color={metrics.temperature > 35 ? "rose" : "amber"}
                 />
                 <MetricCard
                     title="Voltage"

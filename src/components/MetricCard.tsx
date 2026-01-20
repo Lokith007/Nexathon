@@ -11,7 +11,7 @@ interface MetricCardProps {
     icon: LucideIcon;
     trend?: string;
     variant?: "default" | "filled"; // New prop to control card style
-    color?: "primary" | "secondary" | "blue" | "cyan" | "emerald" | "amber" | "rose" | "indigo";
+    color?: "primary" | "secondary" | "blue" | "cyan" | "emerald" | "amber" | "rose" | "indigo" | "purple" | "orange";
     className?: string;
 }
 
@@ -82,6 +82,20 @@ export default function MetricCard({ title, value, unit, status = "normal", icon
                     break;
                 case "indigo":
                     cardBg = "bg-indigo-500 border-indigo-500";
+                    textColor = "text-white";
+                    iconBg = "bg-white/20 text-white";
+                    unitColor = "text-white/80";
+                    titleColor = "text-white/90";
+                    break;
+                case "purple":
+                    cardBg = "bg-purple-500 border-purple-500";
+                    textColor = "text-white";
+                    iconBg = "bg-white/20 text-white";
+                    unitColor = "text-white/80";
+                    titleColor = "text-white/90";
+                    break;
+                case "orange":
+                    cardBg = "bg-orange-500 border-orange-500";
                     textColor = "text-white";
                     iconBg = "bg-white/20 text-white";
                     unitColor = "text-white/80";
